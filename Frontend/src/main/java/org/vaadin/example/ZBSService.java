@@ -25,6 +25,7 @@ public class ZBSService implements Serializable {
         return api.getCentroPorVALOR(nombre);
     }//leeCentros por algun valor concreto*/
 
+    //PRIMER FICHERO
 
     public String leeCentrosPorNombre(String nombre) throws URISyntaxException, IOException,
             InterruptedException {
@@ -40,4 +41,32 @@ public class ZBSService implements Serializable {
         ArrayList<ZonaBasicaSalud> lista = gson.fromJson(resultsAPI, new TypeToken<ArrayList<ZonaBasicaSalud>>() {}.getType());
         return lista;
     }
-}
+
+    //PRIMER FICHERO
+
+
+
+    //SEGUNDO FICHERO
+
+    public String leeCentrosMayores60PorNombre(String nombre) throws URISyntaxException, IOException,
+            InterruptedException {
+        API api = new API();
+        return api.getCentroPorNombreMayores(nombre);
+    }//leeCentrosPorNombre
+
+    public ArrayList<ZonaBasicaSalud60Mayores> leeCentrosMayores60() throws URISyntaxException, IOException,
+            InterruptedException {
+        API api = new API();
+        String resultsAPI = api.getCentrosMayores();
+        Gson gson = new Gson();
+        ArrayList<ZonaBasicaSalud60Mayores> lista = gson.fromJson(resultsAPI, new TypeToken<ArrayList<ZonaBasicaSalud60Mayores>>() {}.getType());
+        return lista;
+    }
+
+
+    //SEGUNDO FICHERO
+
+
+
+
+}//ZBS Service

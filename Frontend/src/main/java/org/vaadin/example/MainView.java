@@ -178,25 +178,39 @@ public class MainView extends VerticalLayout{
 
         tabs.add(primerTab);
 
-        Grid<ZonaBasicaSalud> grid = new Grid<>(ZonaBasicaSalud.class);
-        //Aqui meter lo mismo pero para los de 60
+        Grid<ZonaBasicaSalud> gridZBS = new Grid<>(ZonaBasicaSalud.class);
+        Grid<ZonaBasicaSalud> gridZBSMayores = new Grid<>(ZonaBasicaSalud.class);
         primerTab.add(horizontalLayout);
         segundoTab.add(verticalLayout);
 
         List<ZonaBasicaSalud> zonasBS = service.leeCentros();
 
 
-        grid.setItems(zonasBS);
-        grid.addColumn(ZonaBasicaSalud::getCodigo_geometria).setHeader("Codigo Geometría");
-        grid.addColumn(ZonaBasicaSalud::getZona_basica_salud).setHeader("Zona Basica Salud");
-        grid.addColumn(ZonaBasicaSalud::getTasa_incidencia_acumulada_ultimos_14dias).setHeader("TIA 14 días");
-        grid.addColumn(ZonaBasicaSalud::getTasa_incidencia_acumulada_total).setHeader("TIA Total");
-        grid.addColumn(ZonaBasicaSalud::getCasos_confirmados_totales).setHeader("Casos Conf Totales");
-        grid.addColumn(ZonaBasicaSalud::getCasos_confirmados_ultimos_14dias).setHeader("Casos Conf 14 días");
-        grid.addColumn(ZonaBasicaSalud::getFecha_informe).setHeader("Fecha Informe");
+        //Grid Primer Fichero
+        gridZBS.setItems(zonasBS);
+        gridZBS.addColumn(ZonaBasicaSalud::getCodigo_geometria).setHeader("Codigo Geometría");
+        gridZBS.addColumn(ZonaBasicaSalud::getZona_basica_salud).setHeader("Zona Basica Salud");
+        gridZBS.addColumn(ZonaBasicaSalud::getTasa_incidencia_acumulada_ultimos_14dias).setHeader("TIA 14 días");
+        gridZBS.addColumn(ZonaBasicaSalud::getTasa_incidencia_acumulada_total).setHeader("TIA Total");
+        gridZBS.addColumn(ZonaBasicaSalud::getCasos_confirmados_totales).setHeader("Casos Conf Totales");
+        gridZBS.addColumn(ZonaBasicaSalud::getCasos_confirmados_ultimos_14dias).setHeader("Casos Conf 14 días");
+        gridZBS.addColumn(ZonaBasicaSalud::getFecha_informe).setHeader("Fecha Informe");
 
 
-        add(tabs, grid);
+        //Grid Segundo Fichero
+        gridZBSMayores.setItems(zonasBS);
+        gridZBSMayores.addColumn(ZonaBasicaSalud::getCodigo_geometria).setHeader("Codigo Geometría");
+        gridZBSMayores.addColumn(ZonaBasicaSalud::getZona_basica_salud).setHeader("Zona Basica Salud");
+        gridZBSMayores.addColumn(ZonaBasicaSalud::getTasa_incidencia_acumulada_ultimos_14dias).setHeader("TIA 14 días");
+        gridZBSMayores.addColumn(ZonaBasicaSalud::getTasa_incidencia_acumulada_total).setHeader("TIA Total");
+        gridZBSMayores.addColumn(ZonaBasicaSalud::getCasos_confirmados_totales).setHeader("Casos Conf Totales");
+        gridZBSMayores.addColumn(ZonaBasicaSalud::getCasos_confirmados_ultimos_14dias).setHeader("Casos Conf 14 días");
+        gridZBSMayores.addColumn(ZonaBasicaSalud::getFecha_informe).setHeader("Fecha Informe");
+
+
+
+
+        add(tabs, gridZBS, gridZBSMayores);
 
 
 

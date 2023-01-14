@@ -28,7 +28,43 @@ public class API {
 
 
 
+    //PRIMER FICHERO
     public String getCentroPorNombre(String tipo) throws URISyntaxException, IOException, InterruptedException {
+        String fullUrl = String.format(urlPrefix, "centros/porNombreZona",tipo);
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI(fullUrl))
+                .GET()
+                .build();
+        HttpResponse<String> response = HttpClient
+                .newBuilder()
+                .build()
+                .send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+        return response.body();
+    }//GetCentroPorNombre
+
+    public String getCentros() throws URISyntaxException, IOException, InterruptedException {
+        String fullUrl = String.format(urlPrefix, "centros","");
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI(fullUrl))
+                .GET()
+                .build();
+        HttpResponse<String> response = HttpClient
+                .newBuilder()
+                .build()
+                .send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+        return response.body();
+    }//GetCentros
+
+    //PRIMER FICHERO
+
+
+
+
+    //SEGUNDO FICHERO
+
+    public String getCentroPorNombreMayores(String tipo) throws URISyntaxException, IOException, InterruptedException {
         String fullUrl = String.format(urlPrefix, "centros/porNombreZona",tipo);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI(fullUrl))
@@ -44,7 +80,7 @@ public class API {
 
 
 
-    public String getCentros() throws URISyntaxException, IOException, InterruptedException {
+    public String getCentrosMayores() throws URISyntaxException, IOException, InterruptedException {
         String fullUrl = String.format(urlPrefix, "centros","");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI(fullUrl))
@@ -57,6 +93,16 @@ public class API {
         System.out.println(response.body());
         return response.body();
     }//GetCentros
+
+    //SEGUNDO FICHERO
+
+
+
+
+
+
+
+
 
 
 }//Class API

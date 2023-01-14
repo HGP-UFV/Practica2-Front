@@ -9,13 +9,28 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.textfield.TextField;
+
+
+import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridVariant;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
+import com.vaadin.flow.router.Route;
+
+import java.util.List;
+import java.util.stream.Stream;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * A sample Vaadin view class.
@@ -36,7 +51,7 @@ import java.net.URISyntaxException;
         enableInstallPrompt = false)
 @CssImport("./styles/shared-styles.css")
 @CssImport(value = "./styles/vaadin-text-field-styles.css", themeFor = "vaadin-text-field")
-public class MainView extends VerticalLayout {
+public class MainView extends VerticalLayout{
 
     /**
      * Construct a new Vaadin view.
@@ -45,7 +60,7 @@ public class MainView extends VerticalLayout {
      *
      * @param service The message service. Automatically injected Spring managed bean.
      */
-    public MainView(@Autowired ZBSService service) {
+    public MainView(@Autowired ZBSService service) throws URISyntaxException, IOException, InterruptedException {
 
         /*
 
@@ -84,9 +99,10 @@ public class MainView extends VerticalLayout {
 
 
 
-        //Objetos para mostrar datos
+        //SEGUINDA FORMAAAAAAAAAAAAAAAAAAAAAAA SOLO FUNCIONA METODO POR NOMBRE
+        // Objetos para mostrar datos
         //ZonaBasicaSalud zbs = new ZonaBasicaSalud();
-        final TextField codigoGeometria = new TextField("Codigo Geometría");
+        /*final TextField codigoGeometria = new TextField("Codigo Geometría");
         final TextField zonaBasicaSalud = new TextField("Zona Basica Salud");
         final TextField tasaIncidenciaAcumuladaUltimos14Dias = new TextField("TIA 14 días");
         final TextField tasaIncidenciaAcumuladaTotal = new TextField("TIA Total");
@@ -139,16 +155,53 @@ public class MainView extends VerticalLayout {
         boton1.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         boton1.addClickShortcut(Key.ENTER);
         addClassName("centered-content");
-        add(inputs, boton1, results);
+        add(inputs, boton1, results);*/
 
 
 
 
 
 
+        //3ER METODO
+
+
+        HorizontalLayout horizontalLayout = new HorizontalLayout();
+        VerticalLayout verticalLayout = new VerticalLayout();
+
+
+        Tab tabs = new Tab();
+        Tab primerTab = new Tab("Zonas Básicas Salud");
+        Tab segundoTab = new Tab("Zonas Básicas Salud Mayores 60");
+
+        this.add(horizontalLayout);
+        this.add(verticalLayout);
+
+        tabs.add(primerTab);
+
+        Grid<ZonaBasicaSalud> grid = new Grid<>(ZonaBasicaSalud.class);
+        //Aqui meter lo mismo pero para los de 60
+        primerTab.add(horizontalLayout);
+        segundoTab.add(verticalLayout);
+
+        List<ZonaBasicaSalud> zonasBS = service.leeCentros();
+
+
+        grid.setItems(zonasBS);
+        grid.addColumn(ZonaBasicaSalud::getCodigo_geometria).setHeader("Codigo Geometría");
+        grid.addColumn(ZonaBasicaSalud::getZona_basica_salud).setHeader("Zona Basica Salud");
+        grid.addColumn(ZonaBasicaSalud::getTasa_incidencia_acumulada_ultimos_14dias).setHeader("TIA 14 días");
+        grid.addColumn(ZonaBasicaSalud::getTasa_incidencia_acumulada_total).setHeader("TIA Total");
+        grid.addColumn(ZonaBasicaSalud::getCasos_confirmados_totales).setHeader("Casos Conf Totales");
+        grid.addColumn(ZonaBasicaSalud::getCasos_confirmados_ultimos_14dias).setHeader("Casos Conf 14 días");
+        grid.addColumn(ZonaBasicaSalud::getFecha_informe).setHeader("Fecha Informe");
+
+
+        add(tabs, grid);
 
 
 
     }//Mainview Autowired
 
-}//MainView extends Layout
+
+
+}//MainView Principal

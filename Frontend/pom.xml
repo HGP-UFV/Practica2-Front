@@ -274,7 +274,7 @@
                     </plugin>
 
                     <!-- Runs the integration tests (*IT) after the server is started -->
-                   <!-- <plugin>
+                   <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <executions>
@@ -289,7 +289,7 @@
                             <trimStackTrace>false</trimStackTrace>
                             <enableAssertions>true</enableAssertions>
                         </configuration>
-                    </plugin>-->
+                    </plugin>
                 </plugins>
             </build>
         </profile>

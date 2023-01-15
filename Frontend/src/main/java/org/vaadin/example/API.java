@@ -65,7 +65,7 @@ public class API {
     //SEGUNDO FICHERO
 
     public String getCentroPorNombreMayores(String tipo) throws URISyntaxException, IOException, InterruptedException {
-        String fullUrl = String.format(urlPrefix, "centros/porNombreZona",tipo);
+        String fullUrl = String.format(urlPrefix, "centrosMayores/porNombreZona",tipo);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI(fullUrl))
                 .GET()
@@ -81,7 +81,7 @@ public class API {
 
 
     public String getCentrosMayores() throws URISyntaxException, IOException, InterruptedException {
-        String fullUrl = String.format(urlPrefix, "centros","");
+        String fullUrl = String.format(urlPrefix, "centrosMayores","");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI(fullUrl))
                 .GET()

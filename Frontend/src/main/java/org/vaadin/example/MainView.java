@@ -1,36 +1,19 @@
 package org.vaadin.example;
 
-import com.vaadin.flow.component.Key;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
-import com.vaadin.flow.component.textfield.TextField;
-
-
-import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.grid.GridVariant;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.renderer.ComponentRenderer;
-import com.vaadin.flow.router.Route;
-
-import java.util.List;
-import java.util.stream.Stream;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import javax.servlet.annotation.WebServlet;
+import java.io.*;
+import java.net.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * A sample Vaadin view class.
@@ -179,12 +162,12 @@ public class MainView extends VerticalLayout{
         tabs.add(primerTab);
 
         Grid<ZonaBasicaSalud> gridZBS = new Grid<>(ZonaBasicaSalud.class);
-        Grid<ZonaBasicaSalud> gridZBSMayores = new Grid<>(ZonaBasicaSalud.class);
+        Grid<ZonaBasicaSalud60Mayores> gridZBSMayores = new Grid<>(ZonaBasicaSalud60Mayores.class);
         primerTab.add(horizontalLayout);
         segundoTab.add(verticalLayout);
 
         List<ZonaBasicaSalud> zonasBS = service.leeCentros();
-
+        List<ZonaBasicaSalud60Mayores> zonasBSM60 = service.leeCentrosMayores60();
 
         //Grid Primer Fichero
         gridZBS.setItems(zonasBS);
@@ -198,14 +181,12 @@ public class MainView extends VerticalLayout{
 
 
         //Grid Segundo Fichero
-        gridZBSMayores.setItems(zonasBS);
-        gridZBSMayores.addColumn(ZonaBasicaSalud::getCodigo_geometria).setHeader("Codigo Geometría");
-        gridZBSMayores.addColumn(ZonaBasicaSalud::getZona_basica_salud).setHeader("Zona Basica Salud");
-        gridZBSMayores.addColumn(ZonaBasicaSalud::getTasa_incidencia_acumulada_ultimos_14dias).setHeader("TIA 14 días");
-        gridZBSMayores.addColumn(ZonaBasicaSalud::getTasa_incidencia_acumulada_total).setHeader("TIA Total");
-        gridZBSMayores.addColumn(ZonaBasicaSalud::getCasos_confirmados_totales).setHeader("Casos Conf Totales");
-        gridZBSMayores.addColumn(ZonaBasicaSalud::getCasos_confirmados_ultimos_14dias).setHeader("Casos Conf 14 días");
-        gridZBSMayores.addColumn(ZonaBasicaSalud::getFecha_informe).setHeader("Fecha Informe");
+        gridZBSMayores.setItems(zonasBSM60);
+        gridZBSMayores.addColumn(ZonaBasicaSalud60Mayores::getCodigo_geometria).setHeader("Codigo Geometría");
+        gridZBSMayores.addColumn(ZonaBasicaSalud60Mayores::getZona_basica_salud).setHeader("Zona Basica Salud");
+        gridZBSMayores.addColumn(ZonaBasicaSalud60Mayores::getTasa_incidencia_acumulada_P60mas_ultimos_14dias).setHeader("TIA 14 días");
+        gridZBSMayores.addColumn(ZonaBasicaSalud60Mayores::getCasos_confirmados_P60mas_ultimos_14dias).setHeader("Casos Conf 14 días");
+        gridZBSMayores.addColumn(ZonaBasicaSalud60Mayores::getFecha_informe).setHeader("Fecha Informe");
 
 
 

@@ -79,6 +79,7 @@
     "extra-watch-webpack-plugin": "1.0.3",
     "extract-loader": "5.1.0",
     "file-loader": "6.1.0",
+    "flow-bin": "^0.197.0",
     "html-webpack-plugin": "4.5.2",
     "lit-css-loader": "0.0.4",
     "loader-utils": "2.0.4",
@@ -183,6 +184,13 @@
       "webpack-dev-server": "3.11.0",
       "webpack-merge": "4.2.2"
     },
-    "hash": "d2673009b34041d3d144e9ef35e1107119c7f5027b36e8f367b18142508cf032"
-  }
+    "hash": "18da860a06017bdca146e8fd8be9907cfe24b3b702b5f7064972414b54f6bc28"
+  },
+  "description": "This project can be used as a starting point to create your own Vaadin application with Spring Boot. It contains all the necessary configuration and some placeholder files to get you started.",
+  "version": "1.0.0",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": ""
 }

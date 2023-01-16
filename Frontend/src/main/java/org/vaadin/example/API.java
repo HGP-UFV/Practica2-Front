@@ -24,7 +24,7 @@ public class API {
 
 
     //"Cable" con el que nos vamos a conectar al otro ejercicio. Usaremos el puerto 8090, ya que es el empleado en el Backend
-    private static final String urlPrefix = "http://localhost:8090/%s/%s";
+    private static final String urlPrefix = "http://localhost:8080/%s/%s";
 
 
 
@@ -35,7 +35,7 @@ public class API {
                 .uri(new URI(fullUrl))
                 .GET()
                 .build();
-        HttpResponse<String> response = HttpClient
+        HttpResponse <String> response = HttpClient
                 .newBuilder()
                 .build()
                 .send(request, HttpResponse.BodyHandlers.ofString());

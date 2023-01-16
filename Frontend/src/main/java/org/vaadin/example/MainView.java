@@ -1,16 +1,17 @@
 package org.vaadin.example;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 import org.springframework.beans.factory.annotation.Autowired;
-import javax.servlet.annotation.WebServlet;
-import java.io.*;
-import java.net.*;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -172,12 +173,49 @@ public class MainView extends VerticalLayout{
         //Grid Primer Fichero
         gridZBS.setItems(zonasBS);
         gridZBS.addColumn(ZonaBasicaSalud::getCodigo_geometria).setHeader("Codigo Geometría");
+        //gridZBS.getColumn("Codigo Geometría").setEditable(false);
         gridZBS.addColumn(ZonaBasicaSalud::getZona_basica_salud).setHeader("Zona Basica Salud");
         gridZBS.addColumn(ZonaBasicaSalud::getTasa_incidencia_acumulada_ultimos_14dias).setHeader("TIA 14 días");
         gridZBS.addColumn(ZonaBasicaSalud::getTasa_incidencia_acumulada_total).setHeader("TIA Total");
         gridZBS.addColumn(ZonaBasicaSalud::getCasos_confirmados_totales).setHeader("Casos Conf Totales");
         gridZBS.addColumn(ZonaBasicaSalud::getCasos_confirmados_ultimos_14dias).setHeader("Casos Conf 14 días");
         gridZBS.addColumn(ZonaBasicaSalud::getFecha_informe).setHeader("Fecha Informe");
+        //Columna de los botones
+        gridZBS.addColumn(new ComponentRenderer<>(item -> {
+                    Button editBtn = new Button("Editar", VaadinIcon.EDIT.create());
+                    Button saveBtn = new Button("Guardar", VaadinIcon.DATABASE.create());
+                    editBtn.addClickListener(click -> {
+                        //saveBtn.setVisible(true);
+                        //editBtn.setVisible(false);
+                        gridZBS.getEditor().editItem(item);
+                    });
+                    saveBtn.addClickListener(click -> {
+                        //saveBtn.setVisible(false);
+                        //editBtn.setVisible(true);
+                        gridZBS.getEditor().save();
+                    });
+
+                    editBtn.setWidth("100%");
+                    saveBtn.setWidth("100%");
+                    //saveBtn.setVisible(false); show both buttons until this issue gets answered: https://vaadin.com/forum/thread/17472233/grid-componentrenderer-issue-with-button-clicklisteners-within
+
+                    HorizontalLayout editLayout = new HorizontalLayout(editBtn, saveBtn);
+                    editLayout.setWidth("100%");
+                    return editLayout;
+                }))
+                .setKey("Editar")
+                .setHeader("Editar")
+                .setFlexGrow(0)
+                .setWidth("300px")
+                .setId("edit");
+
+
+
+
+
+
+
+
 
 
         //Grid Segundo Fichero
@@ -187,8 +225,6 @@ public class MainView extends VerticalLayout{
         gridZBSMayores.addColumn(ZonaBasicaSalud60Mayores::getTasa_incidencia_acumulada_P60mas_ultimos_14dias).setHeader("TIA 14 días");
         gridZBSMayores.addColumn(ZonaBasicaSalud60Mayores::getCasos_confirmados_P60mas_ultimos_14dias).setHeader("Casos Conf 14 días");
         gridZBSMayores.addColumn(ZonaBasicaSalud60Mayores::getFecha_informe).setHeader("Fecha Informe");
-
-
 
 
         add(tabs, gridZBS, gridZBSMayores);
